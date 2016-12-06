@@ -24,6 +24,11 @@ class PinsController < ApplicationController
       end
   end
   
+  def edit
+      @pin = Pin.find(params[:id])
+      render :edit
+  end
+  
   private
   
   def pin_params
