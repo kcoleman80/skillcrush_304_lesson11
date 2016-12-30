@@ -46,5 +46,5 @@ end
 gem 'rspec'
 gem 'rspec-rails'
 gem 'rails_12factor'
-gem 'paperclip'
+gem 'paperclip', '4.3.7'
 gem 'aws-sdk', '< 2.0'
