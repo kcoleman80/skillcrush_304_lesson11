@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   #lesson 15 - add post to UserController authenicate
   post '/login' => "users#authenticate"
   
+  delete 'logout/:id' => "users#logout", as: :logout
+  
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
