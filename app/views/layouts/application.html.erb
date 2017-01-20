@@ -8,14 +8,6 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
-   <div class="pull-right">
-  <% if  logged_in? %>
-  <h1>
-    <%= "Hi, #{current_user.first_name}!" %>
-  </h1>
-</div>
-</div>
 <%= yield %>
 <% if !current_user.nil? %>
   <div class="user pull-right">
@@ -25,5 +17,6 @@
     </h3>
   </div>
 <% end %>
+<%= yield %>
 </body>
 </html>
