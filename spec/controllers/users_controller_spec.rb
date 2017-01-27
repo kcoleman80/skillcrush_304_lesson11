@@ -52,7 +52,7 @@ RSpec.describe UsersController, type: :controller do
     
     # This should return the minimal set of values that should be in the session
     # in order to pass any filters (e.g. authentication) defined in
-    # UsersController. Be sure to keep this updated too.
+    # UsersController.
     let(:valid_session) { {} }
     
     #describe "GET #index" do
@@ -62,10 +62,7 @@ RSpec.describe UsersController, type: :controller do
     #    expect(assigns(:users)).to eq([user])
     #  end
     #end
-    
-    
-    # tried changing some syntax from scaffold tests; seem to run
-    # better now...
+    #Lesson 18 - authenicate the user after it's created - show action spec
     describe "GET #show" do
         it "assigns the requested user as @user" do
             user = User.create! valid_attributes
@@ -74,7 +71,7 @@ RSpec.describe UsersController, type: :controller do
             expect(assigns(:user)).to eq(user)
         end
         
-        # add this login/logout change
+        # login/logout change
         it "redirects to login if user is not signed in" do
             user = User.create! valid_attributes
             get :show, {:id => user.to_param}, valid_session

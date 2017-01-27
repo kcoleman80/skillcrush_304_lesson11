@@ -47,10 +47,11 @@ group :test do
   gem 'database_cleaner'  
   gem 'rspec'
   gem 'rspec-rails'    
+  gem 'factory_girl_rails'
 end
 
 gem 'rails_12factor'
 gem 'paperclip', '4.3.7'
-gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk', '~> 2'
+#gem 'aws-sdk', '< 2.0'
 gem 'bcrypt', '~> 3.1.7'
-gem 'factory_girl'
