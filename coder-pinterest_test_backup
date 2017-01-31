@@ -1,0 +1,374 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE categories (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE categories OWNER TO "CCM";
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE categories_id_seq OWNER TO "CCM";
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+
+
+--
+-- Name: people; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE people (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    birthdate date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE people OWNER TO "CCM";
+
+--
+-- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE people_id_seq OWNER TO "CCM";
+
+--
+-- Name: people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE people_id_seq OWNED BY people.id;
+
+
+--
+-- Name: pins; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE pins (
+    id integer NOT NULL,
+    title character varying,
+    url character varying,
+    text text,
+    slug character varying,
+    category_id integer,
+    image_file_name character varying,
+    image_content_type character varying,
+    image_file_size integer,
+    image_updated_at timestamp without time zone
+);
+
+
+ALTER TABLE pins OWNER TO "CCM";
+
+--
+-- Name: pins_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE pins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pins_id_seq OWNER TO "CCM";
+
+--
+-- Name: pins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE pins_id_seq OWNED BY pins.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO "CCM";
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    email character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    password_digest character varying
+);
+
+
+ALTER TABLE users OWNER TO "CCM";
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO "CCM";
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+
+
+--
+-- Name: people id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+
+
+--
+-- Name: pins id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY pins ALTER COLUMN id SET DEFAULT nextval('pins_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY categories (id, name) FROM stdin;
+1	rails
+2	ruby
+\.
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('categories_id_seq', 2, true);
+
+
+--
+-- Data for Name: people; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY people (id, first_name, last_name, birthdate, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: people_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('people_id_seq', 1, false);
+
+
+--
+-- Data for Name: pins; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY pins (id, title, url, text, slug, category_id, image_file_name, image_content_type, image_file_size, image_updated_at) FROM stdin;
+1	Rails Tutorial	https://www.railstutorial.org/	The trusted standard in self-directed introductions to Ruby on Rails. A complete treatment of all the essentials\n    required in most production Rails applications.	rails-tutorial	1	\N	\N	\N	\N
+2	Rails for Zombies	http://railsforzombies.org	A fun, gamified way to hone your Rails skills! Come on...who doesn't like fighting zombies?!	rails-for-zombies	1	\N	\N	\N	\N
+3	Try Ruby	http://tryruby.org/	An interactive, in-browser tutorial for the Ruby programming language. A thorough walkthrough of \n    Ruby's nuances, geared toward beginners.	try-ruby	2	\N	\N	\N	\N
+4	Ruby Quiz	http://rubyquiz.org	A collection of quizzes on the Ruby programming language.	ruby-quiz	2	\N	\N	\N	\N
+5	Ruby on Rails for Developers	https://github.com/generalassembly/ga-ruby-on-rails-for-devs	Somewhat advanced curriculum, but the exercises are also good for anyone who is motivated and \n    self-guided with experience.	ga-ror-for-developers	1	\N	\N	\N	\N
+6	Ruby Monk	http://rubymonk.com	The Ruby Primer is a free interactive book that helps you learn Ruby. Discover Ruby idioms, learn \n    lessons and solve problems, all in your browser!	ruby-monk	2	\N	\N	\N	\N
+\.
+
+
+--
+-- Name: pins_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('pins_id_seq', 6, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY schema_migrations (version) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY users (id, first_name, last_name, email, created_at, updated_at, password_digest) FROM stdin;
+1	Skillcrush	Coder	coder1@skillcrush.com	2017-01-26 07:15:20.870155	2017-01-26 07:15:20.870155	$2a$04$0QNlX7JnkOBMn2od9DhBl.XwbDB3q/dRdYBNYAE4jJzRyd9BvAze.
+2	Skillcrush	Coder	coder2@skillcrush.com	2017-01-26 07:15:20.877225	2017-01-26 07:15:20.877225	$2a$04$cLA4GpOYpC.eaQqMbk3SAulYI/aEFNNH6OUn0p9E3/WBwPt6QomTC
+3	Skillcrush	Coder	coder3@skillcrush.com	2017-01-26 07:15:20.884014	2017-01-26 07:15:20.884014	$2a$04$gGVX4.d/NHCO.0Yfp2UTdObYETHw6.Icq7iIWsF5fpp17X5WVa2de
+4	Skillcrush	Coder	coder4@skillcrush.com	2017-01-26 07:15:20.890019	2017-01-26 07:15:20.890019	$2a$04$KivSwU2OBFEQucI11XmzbezRWoG5trC3idbKhZMxvZsQ29tQxFcti
+5	Skillcrush	Coder	coder5@skillcrush.com	2017-01-26 07:15:20.896603	2017-01-26 07:15:20.896603	$2a$04$7F8iq/xWag1EPiX9LPTF3uhHNh7TfOzeiZKzC6oKNa1i6Yy4fwis6
+6	Skillcrush	Coder	coder6@skillcrush.com	2017-01-26 07:15:20.903356	2017-01-26 07:15:20.903356	$2a$04$wMNsivpEl89yVaPm0GfAfueAcI05pAtjqfYz7LOZAfaK.256SBZLy
+7	Skillcrush	Coder	coder7@skillcrush.com	2017-01-26 07:15:20.909745	2017-01-26 07:15:20.909745	$2a$04$2t/Vh4RD6460BeGVdG/N5OsnuxthG7vggI9f0E0ga6RdUq0TEFAwO
+8	Skillcrush	Coder	coder8@skillcrush.com	2017-01-26 07:15:20.916603	2017-01-26 07:15:20.916603	$2a$04$12Wi34sb4xsnwX3YCKge9ueaj60HCfkAc5Aeye04F57TYHfbh5BQi
+9	Skillcrush	Coder	coder9@skillcrush.com	2017-01-26 07:15:20.927179	2017-01-26 07:15:20.927179	$2a$04$cq05/37oqQ.J635AWTOqveen1CG/lqBPpR.J.iXWhen8eAVLsC5m.
+10	Skillcrush	Coder	coder10@skillcrush.com	2017-01-26 07:15:20.93457	2017-01-26 07:15:20.93457	$2a$04$6AYD7pViyuqhdcxqejWWBuq1Swxj8I9NSbq.IeSLoc6w.63bzlrt6
+11	Skillcrush	Coder	coder11@skillcrush.com	2017-01-26 07:15:20.941161	2017-01-26 07:15:20.941161	$2a$04$ZgS7mZwjhMdO.3Ki50QyV.8Kpb6WseUeD8Am7m33gC8weRCMCPws6
+12	Skillcrush	Coder	coder12@skillcrush.com	2017-01-26 07:15:20.948292	2017-01-26 07:15:20.948292	$2a$04$1ItQxL1Z2Imlnug747kH6eDVds7HUb6j.HCwz.kAh7tPLZ/uxFhd.
+13	Skillcrush	Coder	coder13@skillcrush.com	2017-01-26 07:15:20.955242	2017-01-26 07:15:20.955242	$2a$04$bA3aOsTfOKuQmLktvnr4R.sDonL0XLU7PLRTsgHGHh0q/Msr4JZfa
+14	Skillcrush	Coder	coder14@skillcrush.com	2017-01-26 07:15:20.962097	2017-01-26 07:15:20.962097	$2a$04$hPL9V0KMBJtuQJSIhCzmg.Znq2zzV9VWUc9XjMhEYI5gXiJ2dCFYq
+15	Skillcrush	Coder	coder15@skillcrush.com	2017-01-26 07:15:20.968981	2017-01-26 07:15:20.968981	$2a$04$rvtBYq9hK4/6HqFn6eNhu.DR2CV//jHlaMY4LmPdavx0JCROBo4Ne
+16	Skillcrush	Coder	coder16@skillcrush.com	2017-01-26 07:15:20.975539	2017-01-26 07:15:20.975539	$2a$04$SCHDcKSoSG.0xnV0a5OEVexZmkyGBWO5QkVUtcr/P8gysYAZXIaiS
+17	Skillcrush	Coder	coder17@skillcrush.com	2017-01-26 07:15:20.982223	2017-01-26 07:15:20.982223	$2a$04$PQkyr3rL5P7aiR3OOqc5buLBy5RynxTUDjRGcdICswkHzoiI3WSqS
+18	Skillcrush	Coder	coder18@skillcrush.com	2017-01-26 07:15:20.988842	2017-01-26 07:15:20.988842	$2a$04$RhzMtTUTbJ.yakHdAw8ESenUmXIBlEsKi/fT7xiM8Nasmjh7CUeJm
+19	Skillcrush	Coder	coder19@skillcrush.com	2017-01-26 07:15:20.995038	2017-01-26 07:15:20.995038	$2a$04$XJZTTGKMKP1s2MURta4KEeBQKOwTW7S5so32NKHye4pdqiNnhq7b2
+20	Skillcrush	Coder	coder20@skillcrush.com	2017-01-26 07:15:21.00439	2017-01-26 07:15:21.00439	$2a$04$Mk2z27GdNjs9BTHxQONmWeBY1Dt/lGUO0nDyyqs9NMJVCqowi4Ogm
+21	Skillcrush	Coder	coder21@skillcrush.com	2017-01-26 07:15:21.02615	2017-01-26 07:15:21.02615	$2a$04$CZI9wB4sIVLKlce7/rzzt.9eXgtJiVTKaT3NFL3hcRVQVWvAq/9Jy
+22	Skillcrush	Coder	coder22@skillcrush.com	2017-01-26 07:15:21.032835	2017-01-26 07:15:21.032835	$2a$04$tS6mRl60b3iUeZeSo43F3OjAqFrvi8UjM8xQRSy1bA8mt9lFXLAq.
+23	Skillcrush	Coder	coder23@skillcrush.com	2017-01-26 07:15:21.039209	2017-01-26 07:15:21.039209	$2a$04$1qiUZdbKj6z6sQ2FXKu3c.DWQFevAxip./kBPM3bzS/.pX2pyXTyS
+24	Skillcrush	Coder	coder24@skillcrush.com	2017-01-26 07:15:21.045808	2017-01-26 07:15:21.045808	$2a$04$b7VvUFFFWtN5flHgTa276.H/c9u7jyqT72QTEWNiNG7ePS5dUuUuK
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('users_id_seq', 24, true);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: people people_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY people
+    ADD CONSTRAINT people_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pins pins_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY pins
+    ADD CONSTRAINT pins_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_pins_on_category_id; Type: INDEX; Schema: public; Owner: CCM
+--
+
+CREATE INDEX index_pins_on_category_id ON pins USING btree (category_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: CCM
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

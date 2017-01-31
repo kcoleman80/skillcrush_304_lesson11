@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   
   delete 'logout/:id' => "users#logout", as: :logout
   
+  post "pins/repin/:id" => "pins#repin", as: 'repin'
+  
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

@@ -1,0 +1,377 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE categories (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE categories OWNER TO "CCM";
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE categories_id_seq OWNER TO "CCM";
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+
+
+--
+-- Name: people; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE people (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    birthdate date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE people OWNER TO "CCM";
+
+--
+-- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE people_id_seq OWNER TO "CCM";
+
+--
+-- Name: people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE people_id_seq OWNED BY people.id;
+
+
+--
+-- Name: pins; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE pins (
+    id integer NOT NULL,
+    title character varying,
+    url character varying,
+    text text,
+    slug character varying,
+    category_id integer,
+    image_file_name character varying,
+    image_content_type character varying,
+    image_file_size integer,
+    image_updated_at timestamp without time zone,
+    user_id integer
+);
+
+
+ALTER TABLE pins OWNER TO "CCM";
+
+--
+-- Name: pins_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE pins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pins_id_seq OWNER TO "CCM";
+
+--
+-- Name: pins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE pins_id_seq OWNED BY pins.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO "CCM";
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: CCM
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    email character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    password_digest character varying
+);
+
+
+ALTER TABLE users OWNER TO "CCM";
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: CCM
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO "CCM";
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: CCM
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+
+
+--
+-- Name: people id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+
+
+--
+-- Name: pins id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY pins ALTER COLUMN id SET DEFAULT nextval('pins_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY categories (id, name) FROM stdin;
+1	rails
+2	ruby
+3	rails
+4	ruby
+\.
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('categories_id_seq', 4, true);
+
+
+--
+-- Data for Name: people; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY people (id, first_name, last_name, birthdate, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: people_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('people_id_seq', 1, false);
+
+
+--
+-- Data for Name: pins; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY pins (id, title, url, text, slug, category_id, image_file_name, image_content_type, image_file_size, image_updated_at, user_id) FROM stdin;
+1	Rails Tutorial	https://www.railstutorial.org/	The trusted standard in self-directed introductions to Ruby on Rails. A complete treatment of all the essentials\n    required in most production Rails applications.	rails-tutorial	1	\N	\N	\N	\N	1
+2	Rails for Zombies	http://railsforzombies.org	A fun, gamified way to hone your Rails skills! Come on...who doesn't like fighting zombies?!	rails-for-zombies	1	\N	\N	\N	\N	1
+3	Try Ruby	http://tryruby.org/	An interactive, in-browser tutorial for the Ruby programming language. A thorough walkthrough of \n    Ruby's nuances, geared toward beginners.	try-ruby	2	\N	\N	\N	\N	1
+4	Ruby Quiz	http://rubyquiz.org	A collection of quizzes on the Ruby programming language.	ruby-quiz	2	\N	\N	\N	\N	1
+5	Ruby on Rails for Developers	https://github.com/generalassembly/ga-ruby-on-rails-for-devs	Somewhat advanced curriculum, but the exercises are also good for anyone who is motivated and \n    self-guided with experience.	ga-ror-for-developers	1	\N	\N	\N	\N	1
+6	Ruby Monk	http://rubymonk.com	The Ruby Primer is a free interactive book that helps you learn Ruby. Discover Ruby idioms, learn \n    lessons and solve problems, all in your browser!	ruby-monk	2	\N	\N	\N	\N	1
+\.
+
+
+--
+-- Name: pins_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('pins_id_seq', 6, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY schema_migrations (version) FROM stdin;
+20150318194553
+20150320022457
+20150409201335
+20161207050545
+20161219063639
+20161220043439
+20170107065003
+20170120060235
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: CCM
+--
+
+COPY users (id, first_name, last_name, email, created_at, updated_at, password_digest) FROM stdin;
+1	Sally	Skillcrusher	sallyskillcrusher@example.com	2017-01-20 06:43:00.262953	2017-01-20 06:43:00.262953	$2a$10$dssYar.Xc57flPb0KDxbtukt578xDJEec67XPIrAqzZ9kSMKdUWGC
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: CCM
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: people people_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY people
+    ADD CONSTRAINT people_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pins pins_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY pins
+    ADD CONSTRAINT pins_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_pins_on_category_id; Type: INDEX; Schema: public; Owner: CCM
+--
+
+CREATE INDEX index_pins_on_category_id ON pins USING btree (category_id);
+
+
+--
+-- Name: index_pins_on_user_id; Type: INDEX; Schema: public; Owner: CCM
+--
+
+CREATE INDEX index_pins_on_user_id ON pins USING btree (user_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: CCM
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: pins fk_rails_df511f2ab8; Type: FK CONSTRAINT; Schema: public; Owner: CCM
+--
+
+ALTER TABLE ONLY pins
+    ADD CONSTRAINT fk_rails_df511f2ab8 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
