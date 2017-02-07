@@ -9,7 +9,7 @@ FactoryGirl.define do
         url "http://rails-cheat.com"
         text "A great tool for beginning developers"
         slug
-        category
+        category Category.find_by_name("rails")
     end
     
     factory :user do
@@ -19,7 +19,13 @@ FactoryGirl.define do
         password "secret"
         
         after(:create) do |user|
-            create_list(:pin, 3)
-        end
+            3.times do
+                user.pinnings.create(pin: FactoryGirl.create(:pin))
+            end
+         end
+       end
+    
+    factory :pinning do
+        pin
+        user
     end
-end

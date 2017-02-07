@@ -212,4 +212,35 @@ RSpec.describe PinsController do
         end
         
         end
+    
+    describe "POST repin" do
+        before(:each) do
+            @user = FactoryGirl.create(:user)
+            login(@user)
+            @pin = FactoryGirl.create(:pin)
+        end
+        
+        after(:each) do
+            pin = Pin.find_by_slug("rails-wizard")
+            if !pin.nil?
+                pin.destroy
+            end
+            logout(@user)
+        end
+        
+        it 'responds with a redirect' do
+            post :repin, {:id => @pin.to_param}
+            expect(response).to be_redirect
+        end
+        
+        it 'creates a user.pin' do
+            post :repin, {:id => @pin.to_param}
+            expect(@user.pins.present?).to be(true)
+        end
+        
+        it 'redirects to the user show page' do
+            post :repin, {:id => @pin.to_param}
+            expect(response).to redirect_to(user_path(@user))
+        end
+    end
 end

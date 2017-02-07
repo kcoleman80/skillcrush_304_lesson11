@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   #GET /logout
   def logout
       session.delete(:user_id)
+      redirect_to login_path #new lesson 19 after Action Controller Error
   end
   # authenticate with self.authenticate method in user_controller
   def authenticate

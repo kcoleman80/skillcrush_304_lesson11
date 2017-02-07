@@ -4,7 +4,6 @@
     <%= "#{@pin.title}" %>
   </h1>
 </div>
-
 <div class="show-pin">
   <% if !@pin.image.url.nil? %>
      <img src="<%= @pin.image.url(:medium) %>">
@@ -20,9 +19,10 @@
   Repin!
 <% end %> 
 <h3>This pin has been repinned by:</h3>
-  <% @users.each_slice(3) do |row| %>
-    <div class="row">
-      <% row.each do |user|  %>
+   <% @users.each_slice(3) do |row| %>
+   <% pins = @users.pins %>
+    <div class="row"> 
+      <% row.each do |user| %>
       <div>
       <%= "#{user.first_name} #{user.last_name}" %>
       </div>

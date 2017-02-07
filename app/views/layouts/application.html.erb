@@ -8,15 +8,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= yield %>
+<div class="user pull-right">
+<div class="container">
 <% if !current_user.nil? %>
   <div class="user pull-right">
-    <h3>
-      <%= "Hi, #{current_user.first_name}!"%> |
-      <%= link_to "Logout", logout_path(current_user), method: :delete %>
-    </h3>
+    <h1> 
+      <%= "Hi, #{current_user.first_name}!"%> 
+      <%= link_to "Logout", logout_path(users_path), method: :delete %>
+    </h1>
   </div>
 <% end %>
 <%= yield %>
-</body>
+ </div>
+ </body>
 </html>
