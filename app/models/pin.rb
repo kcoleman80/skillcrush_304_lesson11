@@ -9,4 +9,8 @@ class Pin < ActiveRecord::Base
     belongs_to :category
     belongs_to :user
     
+    has_many :pinnings and has_many :users, through: :pinnings
+    
+    accepts_nested_attributes_for :pinnings
+    
 end

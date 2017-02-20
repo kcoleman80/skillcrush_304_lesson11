@@ -9,6 +9,8 @@ class PinsController < ApplicationController
     
     def new
         @pin = Pin.new
+        #lesson 20 add this
+        @pin.pinnings.build
     end
     
     def create
